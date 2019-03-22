@@ -5,7 +5,7 @@ import './App.css'
 
 class App extends Component {
   render() {
-    console.log('test precommit 2')
+    console.log('test precommit 3')
     return (
       <div className="App">
         <header className="App-header">

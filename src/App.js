@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Button from '@material-ui/core/Button'
+import logo from './logo.svg'
+import './App.css'
 
 class App extends Component {
   render() {
+    console.log('test precommit')
     return (
       <div className="App">
         <header className="App-header">
@@ -11,6 +13,9 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
+          <Button variant="contained" color="secondary">
+            OK
+          </Button>
           <a
             className="App-link"
             href="https://reactjs.org"
@@ -21,8 +26,8 @@ class App extends Component {
           </a>
         </header>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

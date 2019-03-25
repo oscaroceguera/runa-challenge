@@ -13,15 +13,21 @@ const styles = {
   }
 }
 
-const ButtonCustom = ({characters, goToPage, direction}) => (
-  characters.info
-    ? characters.info[direction]
-      ? (<Button color='primary' onClick={goToPage(characters.info[direction])}>
-        {direction}
-      </Button> )
+const ButtonCustom = ({characters, goToPage, direction}) => {
+  return (
+    characters.info
+      ? characters.info[direction]
+        ? (
+          <Button
+            color='primary'
+            onClick={goToPage(characters.info[direction])}
+          >
+            {direction}
+          </Button>)
+        : null
       : null
-    : null
-)
+  )
+}
 
 const Pagination = ({classes, characters, goToPage}) => (
   <div className={classes.listContainer}>

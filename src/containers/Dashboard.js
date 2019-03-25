@@ -1,47 +1,21 @@
 import React from 'react'
-import axios from 'axios'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {fetchCharacters} from '../reducers/characters'
 
 import SearchBar from '../components/SearchBar'
 import ListItem from '../components/List'
 import Pagination from '../components/Pagination'
 
 class Dashboard extends React.Component {
-  /* eslint-disable */
-  state = {
-    anchorEl: null,
-    loading: false,
-    error: null,
-    characters: [],
-    searchByName: ''
-  }
-  /* eslint-enable */
+  state = { searchByName: '' }
 
   componentDidMount () {
-    this.load()
-  }
-
-  async load(url = 'https://rickandmortyapi.com/api/character') {
-    this.setState({
-      loading: true,
-      error: null
-    })
-
-    try {
-      const characters = (await axios.get(url)).data
-      this.setState({
-        loading: false,
-        characters
-      })
-    } catch (e) {
-      this.setState({
-        loading: false,
-        error: e.message
-      })
-    }
+    this.props.fetchCharacters('https://rickandmortyapi.com/api/character')
   }
 
   goToPage = queryParam => e => {
-    this.load(queryParam)
+    this.props.fetchCharacters(queryParam)
   }
 
   detail = id => e => {
@@ -56,11 +30,11 @@ class Dashboard extends React.Component {
 
   searchByName = e => {
     const url = `https://rickandmortyapi.com/api/character/?name=${this.state.searchByName}`
-    this.load(url)
+    this.props.fetchCharacters(url)
   }
 
   render () {
-    const { characters, loading, error } = this.state
+    const { characters, loading, error } = this.props
 
     return (
       <div style={{ padding: '0 1em', width: '100%'}}>
@@ -85,4 +59,11 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard
+const mapStateToProps = state => ({ ...state.characters })
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    fetchCharacters
+  }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
